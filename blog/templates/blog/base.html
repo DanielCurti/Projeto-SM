@@ -1,0 +1,169 @@
+{% load static %}
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!--BOOTSTRAP -->
+	<link rel="stylesheet" href="{% static '/blog/css/bootstrap.min.css' %}">
+	<script src="{% static '/blog/js/bootstrap.min.js' %}"></script>
+
+	<!--FONTAWESOME -->
+	<script src="{% static '/blog/js/all.js' %}"></script> 
+	<link rel="stylesheet" href="{% static '/blog/css/all.css' %}">
+
+	<!--BLOG -->
+	<link rel="stylesheet" href="{% static '/blog/estilos.css' %}" >
+
+	<!-- Bibliotecas JavaScript que devem ser inclu&#195;&#173;das nessa ordem: jQuery.js, Popper.js e Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+	<div class="container">
+
+		<!-- Navegação do site -->
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="/blog"> <img src="{% static '/blog/logoIf.gif' %}" width="60px" height="60px"></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav">
+
+					{% if user.is_authenticated %}
+					<a class="nav-item nav-link" href="/blog/produtos"> <i class="fas fa-home"></i> Inicio </a>
+					<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+						<i class="fas fa-align-justify"></i> Categorias 
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						{% for c in lista_categoria %}
+						<a href="/blog/{{c.id}}/categoria_produto" class="dropdown-item" href="#"> 
+			  				{{c.titulo}} 
+			  			</a>
+			  			{% endfor %}
+			  		</div>
+		  			</li>
+					&emsp;
+					<a class="nav-item nav-link" href="/blog/melhoravaliado"> <i class="fas fa-thumbs-up"></i> Melhores </a>
+					&emsp;
+					<a class="nav-item nav-link" href="/blog/maisvistos"> <i class="fas fa-eye"></i> + Vistos </a>
+					&emsp;
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-question-circle"></i> SAC </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="#"> <i class="fas fa-info-circle"></i> &emsp; Informações </a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="/blog/nova_mensagem"> <i class="far fa-angry"></i> &emsp; Reclamação</a>
+						</div>
+					</li>
+					&emsp;&emsp;&emsp;
+					<a class="nav-item nav-link" href="#"> <i class="fas fa-cart-plus"></i> Carrinho (0)</a>
+					&emsp;&emsp;&emsp;
+					<li>
+						<a class="nav-item nav-link" href="#"> <i class="far fa-user"></i> &ensp; {{ user.first_name }} </a> 
+						<a class="nav-item nav-link" href="#"> <i class="fas fa-edit"></i> editar cadastro </a>
+					</li>
+					<a class="nav-item nav-link" href="/blog/sair">  <i class="fas fa-door-open"></i> Sair   </a>
+					{% else %}
+					<a class="nav-item nav-link" href="/blog/"> Inicio </a>
+					&emsp;
+					<a class="nav-item nav-link" href="/blog/">Sobre</a>
+					&emsp;
+					<a class="nav-item nav-link" href="/blog/"> Termos e condições </a>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> &ensp; Cadastre - se </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="/blog/cadastro"><img src="{% static '/blog/cadastro.png' %}" width="25px" height="25px">&emsp; Cliente novo? Cadastrar</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#"><img src="{% static '/blog/franqueado.png' %}" width="30px" height="30px">&emsp;Quero me tornar um franquedo</a>
+						</div>
+					</li>
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+					<li>
+						<a class="nav-item nav-link" href="/blog/autenticar"> <img src="{% static '/blog/loginCliente.png' %}" width="25px" height="25px"> Login cliente  </a>
+						<a class="nav-item nav-link" href="http://localhost:8000/admin"> <img src="{% static '/blog/loginFranqueado.png' %}" width="25px" height="25px"> Acesso Franqueado</a>
+					</li>
+					{% endif %}
+				</div>
+			</div>
+		</nav>
+
+		<div class="content">
+			{% block content %}
+			{% endblock %}
+		</div>
+		
+		<br><br><br>
+
+		
+		<footer class="site-footer" style="background-color: ";>
+        <div class="container">
+        <div class="footer">
+		<div class="row">
+		  <div class="col-lg-7">
+		    <div class="row">
+		      <div class="col-6 col-md-4 col-lg-4 mb-5 mb-lg-0">
+		        <h3 class="footer-heading mb-4"> Site</h3>
+		        <ul class="list-unstyled">
+					  <li><a class="nav-item nav-link" href="/blog">Início</a></li>
+		          <li><a class="nav-item nav-link" href="/blog/sobre">Sobre</a></li>
+		          <li><a class="nav-item nav-link" href="#">Termos e condições</a></li>
+		        </ul>
+		      </div>
+		      <div class="col-6 col-md-4 col-lg-4 mb-5 mb-lg-0">
+		        <h3 class="footer-heading mb-4">Produtos</h3>
+		        <ul class="list-unstyled">
+					  <li><a class="nav-item nav-link" href="/blog/melhoravaliado">+ Avaliados</a></li>
+		          <li><a class="nav-item nav-link" href="/blog/pioravaliado">- Avaliados</a></li>
+		      </div>
+		      <div class="col-6 col-md-4 col-lg-4 mb-5 mb-lg-0">
+		        <h3 class="footer-heading mb-4">Serviços</h3>
+		        <ul class="list-unstyled">
+					  <li><a class="nav-item nav-link" href="/blog/nova_mensagem">Mensagem</a></li>
+		        </ul>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="col-lg-5">
+		    <div class="row mb-5">
+		      <div class="col-md-12"><h3 class="footer-heading mb-4">Brasil</h3></div>
+		      <div class="col-md-6">
+		        <p>IFFAR <br> Frederico Westphalen</p>  
+		      </div>
+		      <div class="col-md-6">
+		        Tel. + (55) x xxxx xxxx <br>
+		        E-mail. suporte.sm@gmail.com
+		      </div>
+		    </div>
+		    
+		  </div>
+		</div>
+		<div class="row pt-5 mt-5 text-center">
+		  <div class="col-md-12">
+		    <p>
+		    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+		    Copyright &copy; <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> Todos os direitos resrvados | by William Alexandre</a>
+		    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+		    </p>
+		  </div>
+		  
+		</div>
+	    </div>
+	    </footer>
+		
+	</div>
+
+</body>
+</html>
+
+
+
+

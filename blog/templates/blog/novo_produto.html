@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %} 
+{% load static %}
+
+{% block content %}
+
+<h1> Adicionar novo produto </h1>
+<form action="/blog/novo_produto" method="POST">
+   {% csrf_token %}
+   {{ form.as_p }}
+   <input type="submit" value="Cadastrar produto" />
+</form>
+{% endblock content %}

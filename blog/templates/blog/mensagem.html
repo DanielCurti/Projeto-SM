@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %} 
+{% load static %}
+
+{% block content %}
+
+<br>
+
+<center> 
+	<h2> Serviço de Atendimento ao Cliente </h2> 
+	<p> Prezado cliente, preencha corretamente os campos abaixo, para que possamos tentar lhe auxiliar </p>
+</center>
+
+<hr>
+
+	<form action="/blog/nova_mensagem" method="post">
+	   {% csrf_token %}
+	   {{ form.as_p }}
+	   <input type="submit" value="Enviar mensagem" />
+	</form>
+	
+<hr>
+
+{% endblock %}

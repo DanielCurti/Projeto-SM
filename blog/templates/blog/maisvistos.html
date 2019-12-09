@@ -1,0 +1,57 @@
+{% extends 'blog/base.html' %} 
+{% load static %}
+
+{% block content %}
+
+ <br>
+ <hr>
+ <center>
+<div class="content_wrapper row">
+
+	<div id="content_area" class="col-sm-12"> 
+
+		{% if lista_produtos %}
+			<div class="card-deck">
+				{% for p in lista_produtos %}
+				<div class="col-sm-3">
+					<br>
+					<div class="card border-dark" style="width: 15rem;">
+						<center>
+							<img src="/blog/media/{{ p.foto }}" height='75px' width="90px" alt="imagem não disponivel">
+						</center>
+						<div class="card-body">
+							<h5 class="card-title"> {{p.nome}} </h5>
+							<p class="card-text"> <b> R$ {{p.valor}} </b> </p>
+							{% if p.quantidade <= 0 %}
+							<p style="color: red;"> SEM ESTOQUE </p>
+							{% else %}
+							<a href="#" class="btn btn-outline-success"> Adicionar </a>
+							<a href="/blog/{{p.id}}/detalhe_produto" class="btn btn-outline-info"> + Detalhe </a>
+							{% endif %}
+						</div>
+						<div class="card-footer">
+							<small class="text-muted">
+								<i class="far fa-eye"></i> {{ p.visualizacoes }}
+								 &emsp;
+								<i class="far fa-thumbs-down"></i> {{ p.descurtidas }}
+								 &emsp;
+								<i class="far fa-thumbs-up"></i> {{ p.curtidas }}
+							</small>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			{% else %}
+			<div class="text-center mt-5 mb-5 jumbotron">
+				<h5> Ainda não há acessos suficientes nos produtos cadastrados </h5>
+			</div>
+			{% endif %}
+		
+	</div>
+	
+</div>
+</center>
+ <hr>
+
+{% endblock %}

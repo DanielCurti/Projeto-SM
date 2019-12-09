@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %} 
+{% load static %}
+
+{% block content %}
+
+	<form action='/' methof='POST'>
+		{% csrf_token %}
+		<input type='submit' value='cadastrar usuario'>
+	</form>
+
+{% endblock %}
+
+

@@ -1,0 +1,78 @@
+{% extends 'blog/base.html' %} 
+{% load static %}
+
+{% block content %}
+
+<hr>
+<div class="card-deck">
+
+<div class="card border-dark mb-3" style="max-width: 700px;">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+		<img src="/blog/media/{{p.foto}}" height='70%' width="100%" alt="imagem não disponivel">
+	  <center>
+	  {% if resposta == 'sim'%}
+	  <div class="alert alert-warning" role="alert">
+  		Você avaliou este produto
+	  </div>
+	  {% else %}
+	  <div class="alert alert-info" role="alert">
+	  <b> Avalie este produto </b> <br>
+	  <a href="/blog/{{p.id}}/descurtir"><i class="far fa-thumbs-down" style="color: red;"></i></a> {{ p.descurtidas }}
+	  &emsp;&emsp;
+	  <a href="/blog/{{p.id}}/curtir"><i class="far fa-thumbs-up" style="color: blue;"></i></a> {{ p.curtidas }}
+	</div>
+	  {% endif %}
+	  </center>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body text-center">
+        <h3 class="card-title"> <b> {{p.nome}} </b> | {{p.marca}} </h3>
+        <p class="card-text"> {{p.descricao}} </p>
+		<h4 class="card-text" style="color: green;"> <b> R$: {{p.valor}} </b> </h4>
+		<p class="card-text"> <b> Unidades disponíveis: </b> {{p.quantidade}} </p>
+		<hr>
+		<a href="/blog/{{p.id}}/comprar" class="btn btn-success"> Comprar </a>
+		<a href="#" class="btn btn-primary"> Adicionar ao carrinho </a>
+		<a href="/blog/produtos" class="btn btn-secondary"> Voltar </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<center>
+<p>Quem levou este produto, tambem levou:</p>
+{% if p.quantidade >= 1 %}
+	{% for p in lista_indica %}
+		<div class="card border-success" style="width: 15rem;">
+			<center>
+				<img src="/blog/media/{{ p.foto }}" height='75px' width="90px" alt="imagem não disponivel">
+			</center>
+			<div class="card-body">
+				<h5 class="card-title"> {{p.nome}} </h5>
+				<p class="card-text"> <b> R$ {{p.valor}} </b> </p>
+				{% if p.quantidade <= 0 %}
+				<p style="color: red;"> SEM ESTOQUE </p>
+				{% else %}
+				<a href="#" class="btn btn-outline-success"> Adicionar </a>
+				<a href="/blog/{{p.id}}/detalhe_produto" class="btn btn-outline-info"> + Detalhe </a>
+				{% endif %}
+			</div>
+		</div>
+	{% endfor %}
+{% else %}
+<div class="text-center mt-3 mb-3 jumbotron">
+	<h5> Sem recomendação disponível </h5>
+</div>
+{% endif %}
+
+</center>
+
+</div>
+
+<hr>
+
+
+{{ cliente.idade }}
+
+{% endblock %}  

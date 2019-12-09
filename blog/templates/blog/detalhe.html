@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %} 
+{% load static %}
+
+{% block content %}
+
+<h1>{{ p.titulo }}</h1>
+<small>
+Por:{{ p.autor.first_name }}{{ p.autor.last_name }} 
+</small>
+<p> Visualizações: {{ p.visualizacoes }} </p>
+<p> Curtidas: {{ p.curtidas }} </p>
+<p> {{ p.estimativa }} </p>
+<p> {{ p.data_criacao.day }} / {{ p.data_criacao.month }} / {{ p.data_criacao.year }} ({{p.ano_post}} em {{p.mes_post}})    </p>
+<p> {{ p.texto }} </p>   
+  
+{% endblock %}         
+
+
+
+

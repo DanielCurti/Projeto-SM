@@ -1,0 +1,93 @@
+{% extends 'blog/base.html' %} 
+{% load static %}
+
+{% block content %}
+
+<center>
+<div class="content_wrapper row" style="background-color:;">
+
+	<div id="sidebar" class="col-sm-3"> 
+
+	<br>
+
+		<div class="row">
+		  <div class="col-sm">
+
+		  	<div class="input-group mb-2">
+        		<div class="input-group-prepend">
+          			<div class="input-group-text"> <i class="fas fa-search"></i> </div>
+        		</div>
+        			<input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Procure um produto">
+        		<div class="input-group-prepend">
+        			<input class="btn btn-secondary" type="submit" value="OK">
+        		</div>
+      		</div>
+      		<hr>
+      		{% if lista_promocoes %}
+      			{% for p in lista_promocoes %}
+      			<div class="alert alert-success" role="alert">
+  					<b> {{ p.titulo }} </b>
+				</div>
+      				<a href="/blog/media/{{ p.panfleto }}" title="Clique aqui para ampliar" target="_blank"><img src="/blog/media/{{ p.panfleto }}" height='400px' width="255px"  alt="imagem não disponivel"/></a>
+      				<hr>
+      			{% endfor %}
+      		{% else %}
+      			<div class="alert alert-success" role="alert">
+  					<b> Promoções SM </b>
+				</div>
+					<img src="{% static '/blog/aguarde.gif' %}" width="250px" height="250px">
+      		{% endif %}
+		  </div>
+		</div>
+
+	</div>
+
+	<div id="content_area" class="col-sm-8"> 
+		<div class="tab-content" id="nav-tabContent">
+
+			{% if lista_produtos %}
+			<div class="card-deck justify-content-end">
+				{% for p in lista_produtos %}
+				<div class="col-sm-4">
+					<br>
+					<div class="card border-success" style="width: 15rem;">
+						<center>
+							<img src="/blog/media/{{ p.foto }}" height='75px' width="90px" alt="imagem não disponivel">
+						</center>
+						<div class="card-body">
+							<h5 class="card-title"> {{p.nome}} </h5>
+							<p class="card-text"> <b> R$ {{p.valor}} </b> </p>
+							{% if p.quantidade <= 0 %}
+							<p style="color: red;"> SEM ESTOQUE </p>
+							{% else %}
+							<a href="#" class="btn btn-outline-success"> Adicionar </a>
+							<a href="/blog/{{p.id}}/detalhe_produto" class="btn btn-outline-info"> + Detalhe </a>
+							{% endif %}
+						</div>
+						<div class="card-footer">
+							<small class="text-muted">
+								<i class="far fa-eye"></i> {{ p.visualizacoes }} 
+								 &emsp;
+								<i class="far fa-thumbs-down"></i> {{ p.descurtidas }}
+								 &emsp;
+								<i class="far fa-thumbs-up"></i> {{ p.curtidas }}
+							</small>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			{% else %}
+			<div class="text-center mt-5 mb-5 jumbotron">
+				<h5> Em breve, novos produtos para você, aguarde... </h5>
+			</div>
+			{% endif %}
+
+		</div>
+		<br>
+	</div>
+
+</div>
+</center>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'blog/base.html' %} 
+{% load static %}
+
+{% block content %}
+
+{% if lista_posts %}
+   {% for p in lista_posts %}
+   
+	<br>
+	<hr>
+   
+      <div class="card">
+         <div class="card-body">
+          <h5 class="card-title"><a href="/blog/{{p.id}}/detalhe"> {{ p.titulo }}</a></h5>
+ 
+          <p> <i class="fas fa-eye"></i> {{ p.visualizacoes }}
+              <a href="/blog/{{p.id}}/curtir"> <i class="far fa-thumbs-up"></i> </a> {{ p.curtidas }}</p>
+          <p> <span class="badge badge-pill badge-secondary"> {{ p.estimativa }} </span> </p>
+          <h6 class="card-subtitle mb-2 text-muted"> {{ p.data_criacao.day }} / {{ p.data_criacao.month }} / {{ p.data_criacao.year }} ({{p.ano_post}} em {{p.mes_post}}) por {{ p.autor.first_name}} {{ p.autor.last_name}}  </h6>
+          <p class="card-text"> {{ p.texto_abreviado }} </p>
+          <a href="/blog/{{p.id}}/detalhe" class="card-link"> Veja mais </a>
+         </div>
+      </div>
+
+	<hr>
+    <br>
+   {% endfor %}
+   
+{% else %}
+   <p>Nenhum artigo cadastrado.</p>
+{% endif %}
+
+{% endblock %}
+
+

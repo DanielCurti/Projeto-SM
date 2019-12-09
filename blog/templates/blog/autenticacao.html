@@ -1,0 +1,31 @@
+{% extends 'blog/base.html' %} 
+{% load static %}
+
+{% block content %}
+
+<br>
+
+<h2> LOGIN </h2>
+
+<hr>
+
+{% if mensagem %}
+   <div class="alert alert-danger" role="alert">
+       {{mensagem}}
+   </div>
+{% endif %}
+
+<fieldset style="width: 30%">
+	<legend> Insira seus dados para acesso </legend>
+
+<form action="/blog/autenticar" method="POST">
+   {% csrf_token %}
+   {{ form.as_p }}
+   <input type="submit" value="Logar" />
+</form>
+
+</fieldset>
+
+<hr>
+
+{% endblock content %}

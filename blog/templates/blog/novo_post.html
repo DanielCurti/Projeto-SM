@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %} 
+{% load static %}
+
+{% block content %}
+
+<h1> Adicionar novo artigo </h1>
+<form action="/blog/novo_post" method="POST">
+   {% csrf_token %}
+   {{ form.as_p }}
+   <input type="submit" value="Enviar artigo" />
+</form>
+{% endblock content %}

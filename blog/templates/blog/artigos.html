@@ -1,0 +1,38 @@
+{% extends 'blog/base.html' %} 
+{% load static %}
+
+{% block content %}
+
+<h1> Lista de artigos do blog </h1>
+
+{% if lista_posts %}
+   <table class="table">
+    <thead>
+    <tr>
+           <th> Id </th> 
+           <th> Titulo </a>  </td>
+           <th> Data  </th>
+           <th> Curtidas </th>
+           <th> Visualizacoes  </th>
+           <th> Autor  </th>
+           <th>Email  </th>
+      </tr>
+    </thead>
+   {% for p in lista_posts %}
+       <tr>
+           <td> {{ p.id }}  </td> 
+           <td> <a href="/blog/{{p.id}}/detalhe"> {{ p.titulo }} </a>  </td>
+           <td> {{ p.data_criacao }}  </td>
+           <td> {{ p.curtidas }}  </td>
+           <td> {{ p.visualizacoes }}  </td>
+           <td> {{ p.autor.first_name }}  </td>
+           <td> {{ p.autor.email }}  </td>
+      </tr>
+   {% endfor %}
+   </table>
+{% else %}
+   <p>Nenhum artigo cadastrado.</p>
+{% endif %}
+
+{% endblock %}
+
